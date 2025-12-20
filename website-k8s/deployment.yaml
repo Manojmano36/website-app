@@ -7,14 +7,14 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: website-app
+      app: website
   template:
     metadata:
       labels:
-        app: website-app
+        app: website
     spec:
       containers:
-      - name: website-app
+      - name: website
         image: manojmano36/website-app:latest
         ports:
         - containerPort: 80
