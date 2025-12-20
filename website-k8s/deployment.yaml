@@ -2,18 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: website-app
+  namespace: default   # 👈 REQUIRED
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: website
+      app: website-app
   template:
     metadata:
       labels:
-        app: website
+        app: website-app
     spec:
       containers:
-      - name: website
+      - name: website-app
         image: manojmano36/website-app:latest
         ports:
         - containerPort: 80
