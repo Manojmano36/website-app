@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = "your-dockerhub-username/website-app"
+    IMAGE_NAME = "manojmano36/website-app"
   }
 
   stages {
