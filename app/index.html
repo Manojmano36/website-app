@@ -1,19 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>DevOps GitOps Project</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Git SHA | The Digital Fingerprint</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-  <h1>🚀 DevOps Production Pipeline</h1>
-  <p>This website is deployed using Jenkins CI and Argo CD GitOps.</p>
 
-  <ul>
-    <li>CI: Jenkins</li>
-    <li>Container: Docker</li>
-    <li>CD: Argo CD</li>
-    <li>Platform: Kubernetes</li>
-  </ul>
+    <header>
+        <nav>
+            <div class="logo">Git<span>Logic</span></div>
+            <ul>
+                <li><a href="#what">What is it?</a></li>
+                <li><a href="#how">How it Works</a></li>
+                <li><a href="#why">Why it Matters</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="fade-in">The DNA of your <span>Code</span></h1>
+                <p class="fade-in-delay">A Git SHA-1 hash is the unique identifier that ensures your project's history remains immutable and secure.</p>
+                <div class="sha-display">
+                    <code>f7a2b3c...8e9d01f</code>
+                    <button onclick="copySHA()">Copy Hash</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="what" class="features">
+            <div class="card fade-up">
+                <i data-lucide="fingerprint"></i>
+                <h3>Digital Fingerprint</h3>
+                <p>A 40-character hexadecimal string generated from your commit's exact content.</p>
+            </div>
+            <div class="card fade-up">
+                <i data-lucide="shield-check"></i>
+                <h3>Data Integrity</h3>
+                <p>If even a single pixel or character changes, the entire SHA changes instantly.</p>
+            </div>
+            <div class="card fade-up">
+                <i data-lucide="git-branch"></i>
+                <h3>Parent Tracking</h3>
+                <p>Each SHA contains a reference to its parent, creating a secure chain of history.</p>
+            </div>
+        </section>
+
+        <section id="how" class="logic-section">
+            <h2>What makes a SHA?</h2>
+            <div class="grid">
+                <div class="logic-box">
+                    <span class="step">01</span>
+                    <h4>File Contents</h4>
+                    <p>The actual changes in your code (blobs).</p>
+                </div>
+                <div class="logic-box">
+                    <span class="step">02</span>
+                    <h4>Metadata</h4>
+                    <p>Author name, email, and timestamp.</p>
+                </div>
+                <div class="logic-box">
+                    <span class="step">03</span>
+                    <h4>Commit Message</h4>
+                    <p>The description you wrote for the change.</p>
+                </div>
+                <div class="logic-box">
+                    <span class="step">04</span>
+                    <h4>Parent Hash</h4>
+                    <p>The ID of the commit that came before.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Mastering Git &copy; 2025 | Built for Developers</p>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        function copySHA() {
+            alert("Full SHA copied: f7a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9d0");
+        }
+    </script>
 </body>
 </html>
