@@ -20,9 +20,20 @@ pipeline {
       }
     }
 
+    stage('Get Git Commit') {
+      steps {
+        script {
+          GIT_SHA = sh(
+            script: "git rev-parse --short HEAD",
+            returnStdout: true
+          ).trim()
+        }
+      }
+    }
+
     stage('Docker Build') {
       steps {
-        sh 'docker build -t $IMAGE_NAME:latest .'
+        sh "docker build -t $IMAGE_NAME:${GIT_SHA} ."
       }
     }
 
@@ -33,10 +44,10 @@ pipeline {
           usernameVariable: 'DOCKER_USER',
           passwordVariable: 'DOCKER_PASS'
         )]) {
-          sh '''
+          sh """
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-            docker push $IMAGE_NAME:latest
-          '''
+            docker push $IMAGE_NAME:${GIT_SHA}
+          """
         }
       }
     }
