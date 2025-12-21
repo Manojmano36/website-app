@@ -11,7 +11,7 @@ if [ ! -f app/index.html ]; then
 fi
 
 # Test 2: Website title check
-grep -q "DevOps Production Pipeline" app/index.html || {
+grep -q "Understanding Git SHA | The Digital Fingerprint" app/index.html || {
   echo "❌ Expected title not found"
   exit 1
 }
