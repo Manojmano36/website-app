@@ -51,19 +51,19 @@ pipeline {
         }
       }
     }
-    stage('Update GitOps Repo') {
+      stage('Update GitOps Repo') {
   steps {
     withCredentials([usernamePassword(
       credentialsId: 'github-creds',
       usernameVariable: 'GIT_USER',
       passwordVariable: 'GIT_TOKEN'
     )]) {
-      sh """
+      sh '''
         rm -rf website-k8s
-        git clone https://$GIT_USER:$GIT_TOKEN@github.com/$GIT_USER/website-k8s.git
+        git clone https://${GIT_USER}:${GIT_TOKEN}@github.com/Manojmano36/website-k8s.git
         cd website-k8s
 
-        sed -i 's|image:.*|image: $IMAGE_NAME:${GIT_SHA}|' deployment.yaml
+        sed -i "s|image:.*|image: manojmano36/website-app:${GIT_SHA}|" deployment.yaml
 
         git config user.email "ci-bot@jenkins"
         git config user.name "jenkins-bot"
@@ -71,7 +71,7 @@ pipeline {
         git add deployment.yaml
         git commit -m "Deploy image ${GIT_SHA}"
         git push
-      """
+      '''
     }
   }
 }
