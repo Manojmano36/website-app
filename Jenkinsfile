@@ -65,8 +65,8 @@ pipeline {
         git clone https://${GIT_USER}:${GIT_TOKEN}@github.com/Manojmano36/website-k8s.git
         cd website-k8s
 
-        echo "Updating image to ${IMAGE_NAME}:${GIT_SHA}"
-        sed -i "s|image:.*|image: ${IMAGE_NAME}:${GIT_SHA}|" deployment.yaml
+        echo "Using image tag: ${GIT_SHA}"
+        sed -i "s|image:.*|image: manojmano36/website-app:${GIT_SHA}|" deployment.yaml
 
         git config user.email "ci-bot@jenkins"
         git config user.name "jenkins-bot"
@@ -78,6 +78,7 @@ pipeline {
     }
   }
 }
+
 🧪 
   }
 }
