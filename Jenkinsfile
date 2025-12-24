@@ -23,17 +23,18 @@ pipeline {
     stage('Get Git Commit') {
       steps {
         script {
-          GIT_SHA = sh(
+          env.GIT_SHA = sh(
             script: "git rev-parse --short HEAD",
             returnStdout: true
           ).trim()
         }
+        echo "Git SHA is ${env.GIT_SHA}"
       }
     }
 
     stage('Docker Build') {
       steps {
-        sh "docker build -t $IMAGE_NAME:${GIT_SHA} ."
+        sh "docker build -t ${IMAGE_NAME}:${GIT_SHA} ."
       }
     }
 
@@ -46,35 +47,37 @@ pipeline {
         )]) {
           sh """
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-            docker push $IMAGE_NAME:${GIT_SHA}
+            docker push ${IMAGE_NAME}:${GIT_SHA}
           """
         }
       }
     }
-      stage('Update GitOps Repo') {
+
+    stage('Update GitOps Repo') {
   steps {
     withCredentials([usernamePassword(
       credentialsId: 'github-creds',
       usernameVariable: 'GIT_USER',
       passwordVariable: 'GIT_TOKEN'
     )]) {
-      sh '''
+      sh """
         rm -rf website-k8s
         git clone https://${GIT_USER}:${GIT_TOKEN}@github.com/Manojmano36/website-k8s.git
         cd website-k8s
 
-        sed -i "s|image:.*|image: manojmano36/website-app:${GIT_SHA}|" deployment.yaml
+        echo "Updating image to ${IMAGE_NAME}:${GIT_SHA}"
+        sed -i "s|image:.*|image: ${IMAGE_NAME}:${GIT_SHA}|" deployment.yaml
 
         git config user.email "ci-bot@jenkins"
         git config user.name "jenkins-bot"
 
         git add deployment.yaml
-        git commit -m "Deploy image ${GIT_SHA}"
+        git commit -m "Deploy image ${GIT_SHA}" || echo "No changes to commit"
         git push
-      '''
+      """
     }
   }
 }
-
+🧪 
   }
 }
